@@ -106,4 +106,4 @@ node --test tests/geo.test.js          # web app logic tests
 Megha Jotangiya · Vrutik Adani · Harshita Mishra · Bhavya Atul Shah. Arizona State University, IFT 593 Applied Project, advised by Dr. Asmaa Elbadrawy.
 
 ---
-Maintained by [Vrutik Adani](https://www.linkedin.com/in/vrutikadani)
+
