@@ -1,10 +1,12 @@
 # Greenway: Phoenix Waste Drop-Off Finder & Waste Analytics
 
+[![CI](https://github.com/vrutikadani/Greenway-Phoenix-Sustainability/actions/workflows/ci.yml/badge.svg)](https://github.com/vrutikadani/Greenway-Phoenix-Sustainability/actions/workflows/ci.yml)
+
 Greenway helps Phoenix residents find the closest city landfill or transfer station, with the driving route, drive time, opening hours and holiday closures. It also includes an analysis of 2023 city waste tonnage and a Tableau dashboard for city planners.
 
 > **Context.** Built as a 4-person applied project for IFT 593 at Arizona State University (Spring 2024). In 2026 I came back to it: rebuilt the web app so it runs with no API keys, made the analysis reproducible, and found a data problem in the original dataset that inflated the totals by 31%.
 
-**Tableau dashboard:** [Sustainable Waste Management: Phoenix City Insights](https://public.tableau.com/app/profile/vrutik.sanjay.adani/viz/SustainableWasteManagement-PhoenixCityInsights_171289461)
+**Live demo:** [vrutikadani.github.io/Greenway-Phoenix-Sustainability/web](https://vrutikadani.github.io/Greenway-Phoenix-Sustainability/web/) · **Tableau dashboard:** [Sustainable Waste Management: Phoenix City Insights](https://public.tableau.com/app/profile/vrutik.sanjay.adani/viz/SustainableWasteManagement-PhoenixCityInsights_171289461)
 
 ## The problem
 
