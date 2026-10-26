@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Greenway · Phoenix Drop-Off Finder</title>
+  <meta name="description" content="Find the closest City of Phoenix landfill or transfer station, with driving directions, hours and holidays.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root { --green: #355E3B; --green-2: #4F7D55; --ink: #1F2A24; --muted: #6B7280; --line: #E5E7EB; --bg: #F7F8F5; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: var(--bg); }
+    #map { position: absolute; inset: 0; }
+    .panel { position: absolute; top: 16px; right: 16px; width: min(380px, calc(100% - 32px)); max-height: calc(100% - 32px);
+      overflow: auto; background: #fff; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.15); z-index: 1000; }
+    header { background: var(--green); color: #fff; padding: 16px 18px; border-radius: 14px 14px 0 0; }
+    header h1 { margin: 0; font-size: 20px; letter-spacing: .2px; }
+    header p { margin: 4px 0 0; font-size: 13px; opacity: .85; }
+    form { padding: 16px 18px 8px; }
+    label { font-size: 13px; color: var(--muted); }
+    .row { display: flex; gap: 8px; margin-top: 6px; }
+    input { flex: 1; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 8px; font-size: 15px; }
+    input:focus { outline: none; border-color: var(--green); }
+    button { padding: 10px 14px; border: 0; border-radius: 8px; background: var(--green); color: #fff; font-weight: 600; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; }
+    .examples { padding: 0 18px 12px; font-size: 12px; color: var(--muted); }
+    .examples button { background: none; color: var(--green-2); padding: 2px 4px; font-weight: 500; text-decoration: underline; }
+    .status { margin: 0 18px 12px; padding: 10px 12px; border-radius: 8px; font-size: 13px; background: #EEF5EF; }
+    .status.warn { background: #FFF6E5; color: #8A5300; } .status.error { background: #FDECEC; color: #9B1C1C; }
+    #result { border-top: 1px solid var(--line); padding: 16px 18px 18px; }
+    .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    #result h2 { margin: 4px 0 2px; font-size: 18px; color: var(--green); }
+    .addr { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+    .stats { display: flex; gap: 8px; margin-bottom: 12px; }
+    .stats div { flex: 1; background: var(--bg); border-radius: 8px; padding: 8px 10px; }
+    .stats span { display: block; font-weight: 700; font-size: 16px; }
+    .stats small { color: var(--muted); font-size: 11px; }
+    .open { color: #1E7A3A; } .closed { color: #9B1C1C; }
+    details { border-top: 1px solid var(--line); padding: 8px 0; font-size: 14px; }
+    summary { cursor: pointer; font-weight: 600; }
+    details ul, details ol { margin: 6px 0 0; padding-left: 18px; color: #374151; }
+    details li { margin: 2px 0; }
+    .meta { font-size: 14px; }
+    .link { display: block; margin-top: 10px; color: var(--green-2); font-weight: 600; font-size: 14px; text-decoration: none; }
+    footer { padding: 10px 18px 14px; font-size: 11px; color: var(--muted); border-top: 1px solid var(--line); }
+    @media (max-width: 640px) { .panel { top: auto; bottom: 0; right: 0; width: 100%; max-height: 60%; border-radius: 14px 14px 0 0; } header { border-radius: 14px 14px 0 0; } }
+  </style>
+</head>
+<body>
+  <div id="map" aria-label="Map of Phoenix drop-off sites"></div>
+  <aside class="panel">
+    <header>
+      <h1>♻ Greenway</h1>
+      <p>Find the closest City of Phoenix landfill or transfer station.</p>
+    </header>
+    <form id="search">
+      <label for="address">Your Phoenix street address</label>
+      <div class="row">
+        <input id="address" autocomplete="street-address" placeholder="200 W Washington St, Phoenix, AZ 85003">
+        <button id="go" type="submit">Find</button>
+      </div>
+    </form>
+    <div class="examples">Try:
+      <button type="button" data-example="200 W Washington St, Phoenix, AZ 85003">Downtown</button>
+      <button type="button" data-example="3401 E Desert Cove Ave, Phoenix, AZ 85028">North Phoenix</button>
+      <button type="button" data-example="4800 E Cotton Gin Loop, Phoenix, AZ 85040">South Phoenix</button>
+    </div>
+    <p id="status" class="status" hidden></p>
+    <section id="result" hidden></section>
+    <footer>Map data © OpenStreetMap contributors · Routing by OSRM · Hours from the City of Phoenix (2024); check phoenix.gov before you go.</footer>
+  </aside>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="geo.js"></script>
+  <script src="stations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
